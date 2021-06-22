@@ -6,10 +6,11 @@
   --clr-dark-blue: hsl(249, 10%, 26%);
   --bg-blue: hsl(248, 32%, 49%);
   --bg-primary: hsl(0, 100%, 74%);
-  --border-radius: 8px;
+  --border-radius: 6px;
 }
 
 $green: hsl(154, 59%, 51%);
+$red: hsl(0, 100%, 74%);
 
 * {
   padding: 0;
@@ -28,7 +29,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 0 165px;
+  padding: 0 40px;
 
   background: url(./images/bg-intro-desktop.png) no-repeat var(--bg-primary);
   background-size: cover;
@@ -68,7 +69,7 @@ body {
 
   max-width: 540px;
 
-  .error {
+  & > .error {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -99,7 +100,7 @@ body {
 
   .form {
     width: 100%;
-    height: 480px;
+    height: 540px;
     padding: 40px;
     border-radius: var(--border-radius);
     background: white;
@@ -108,25 +109,55 @@ body {
 
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     align-content: center;
 
-    & > input {
-      height: 50px;
-      border: 1px solid rgb(185, 181, 181);
-      margin: 10px 0;
-      border-radius: var(--border-radius);
-      padding-left: 35px;
-      font-weight: 500;
-      color: var(--clr-dark-blue);
+    .container {
+      position: relative;
 
-      &:focus {
-        outline: none;
-        border: 1px solid var(--clr-dark-blue);
+      & > .error {
+        border: 2px solid var(--clr-red);
+      }
+    }
+
+    & > .input-wrapper {
+      position: relative;
+
+      input {
+        width: 100%;
+        height: 50px;
+        border: 1px solid rgb(185, 181, 181);
+        border-radius: var(--border-radius);
+        padding-left: 35px;
+        font-weight: 500;
+        color: var(--clr-dark-blue);
+
+        &:focus {
+          outline: none;
+          border: 1px solid var(--clr-dark-blue);
+        }
+
+        &::placeholder {
+          opacity: 0.7;
+        }
       }
 
-      &::placeholder {
-        opacity: 0.7;
+      .error-img {
+        width: 25px;
+        height: 25px;
+        background: url(./images/icon-error.svg) no-repeat;
+        background-size: cover;
+
+        position: absolute;
+        top: 50%;
+        right: 25px;
+        transform: translateY(-50%);
+      }
+
+      & > p {
+        color: var(--clr-red);
+        font-size: 12px;
+        text-align: end;
       }
     }
 
@@ -134,17 +165,19 @@ body {
       width: 100%;
       height: 50px;
       background: var(--clr-green);
-      margin: 5px 0 20px 0;
+
       border-radius: var(--border-radius);
       position: relative;
       padding-top: 5px;
+      text-transform: capitalize;
 
       &:hover {
         cursor: pointer;
+        background: darken($green, 5%);
       }
 
       &:active {
-        background: darken($green, 5%);
+        background: darken($green, 10%);
       }
 
       &::before {
@@ -169,6 +202,10 @@ body {
       & > span {
         color: var(--clr-red);
         cursor: pointer;
+
+        &:hover {
+          color: darken($red, 10%);
+        }
       }
     }
 
@@ -182,6 +219,94 @@ body {
       background: rgba(218, 100, 100, 0.7);
       border-radius: var(--border-radius);
       transform: translateZ(-1px);
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  body {
+    flex-direction: column;
+    padding: 100px 30px 60px 30px;
+    gap: 0;
+
+    .left-part {
+      flex: none;
+
+      h1 {
+        font-size: 32px !important;
+        margin: 0 auto;
+        letter-spacing: 1px;
+      }
+
+      p {
+        font-size: 16px;
+      }
+
+      .left-part-wrapper {
+        text-align: center;
+      }
+    }
+
+    .right-part {
+      & > .error {
+        height: 50px;
+        font-size: 13px;
+      }
+
+      .form {
+        height: 480px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 400px) {
+  body {
+    gap: 0;
+
+    .left-part {
+      flex: none;
+      min-width: 300px;
+
+      h1 {
+        font-size: 24px !important;
+        margin: 0 auto;
+        letter-spacing: 1px;
+        margin-bottom: 20px !important;
+      }
+
+      p {
+        font-size: 14px;
+      }
+
+      .left-part-wrapper {
+        text-align: center;
+      }
+    }
+
+    .right-part {
+      min-width: 300px;
+      & > .error {
+        height: 50px;
+        font-size: 13px;
+      }
+
+      .form {
+        padding: 20px;
+        .input-wrapper {
+          .container {
+            height: 50px;
+            font-size: 12px;
+            .error-img {
+              width: 20px;
+              height: 20px;
+            }
+          }
+          p {
+            font-size: 11px;
+          }
+        }
+      }
     }
   }
 }
